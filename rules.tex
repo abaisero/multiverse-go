@@ -3,6 +3,7 @@
 
 \usepackage{fancyhdr}
 \usepackage{fullpage}
+\usepackage{lscape}
 
 \usepackage{booktabs}
 \usepackage{verbatim}
@@ -74,7 +75,7 @@
 }
 
 \newcommand\upperlabels{A,...,Z}
-\newcommand\lowerlabels{a,...,z}
+\newcommand\lowerlabels{do,re,mi,fa,so}
 \newcommand\numberlabels{1,...,19}
 
 \newcommand\upperboard[1]{
@@ -105,12 +106,13 @@ The game is played on a 3D goban;  in this document we will use the $5\times
 5\times 5$ grid as an example.  Rather than seeing it as a single $5 \times
 5\times$ game of go, it should be seen as $15$ separate (but connected)
 $5\times 5$ games.  Each 2D ``slice'' of the 3D goban represents a separate
-``flat'' game.
+``flat'' game.  In practice, when each move in the $5\times 5\times 5$ goban
+corresponds to $3$ moves and $12$ passes in the $5\times 5$ ``slice'' gobans.
 
 Each intersection can be identified by using 3D coordinates which range from
 $\texttt{A1a}$ to $\texttt{E5e}$.  These coordinates can be used to uniquely
-identify both the 2D sub-boards in which the moves are being played, and the
-coordinates within those sub-boards.
+identify both the 2D ``slice'' gobans in which the moves are being played, and
+the coordinates within those ``slice'' gobans.
 %
 Each 2D board has a unique name;  in $5\times 5\times 5$ multiverse go, the
 names are 
