@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twocolumn]{article}
 \usepackage[utf8]{inputenc}
 
 \usepackage{geometry}
@@ -14,10 +14,11 @@
 % \usepackage{algorithm}
 
 % \usepackage{amsmath, amsfonts, amsthm, bm}
-% \usepackage{hyperref}
-% \usepackage{cleveref}
+\usepackage{hyperref}
+\usepackage{cleveref}
 
 \usepackage{tikz}
+\usepackage{tikz-3dplot} 
 \usetikzlibrary{backgrounds,decorations.pathreplacing}
 \usetikzlibrary{calc}
 \usetikzlibrary{matrix}
@@ -106,15 +107,18 @@ $5\times 5$ games.  Each 2D ``slice'' of the 3D goban represents a separate
 corresponds to $3$ moves and $12$ passes in the $5\times 5$ ``slice'' gobans.
 
 Each intersection can be identified by using 3D coordinates which range from
-$\texttt{A1do}$ to $\texttt{E5so}$, where
+$\texttt{A1do}$ to $\texttt{E5so}$ (see \cref{fig:goban}), where
 %
 \begin{itemize}
   %
-  \item the first axis contains coordinates $\texttt{A}$, $\texttt{B}$, $\texttt{C}$, $\texttt{D}$, $\texttt{E}$;
+  \item the first axis uses $\texttt{A}$, $\texttt{B}$, $\texttt{C}$,
+    $\texttt{D}$, $\texttt{E}$, etc.;
   %
-  \item the second axis contains coordinates $\texttt{1}$, $\texttt{2}$, $\texttt{3}$, $\texttt{4}$, $\texttt{5}$; and
+  \item the second axis uses $\texttt{1}$, $\texttt{2}$, $\texttt{3}$,
+    $\texttt{4}$, $\texttt{5}$, etc.; and
   %
-  \item the third axis contains coordinates $\texttt{do}$, $\texttt{re}$, $\texttt{mi}$, $\texttt{fa}$, $\texttt{so}$,
+  \item the third axis uses $\texttt{do}$, $\texttt{re}$, $\texttt{mi}$,
+    $\texttt{fa}$, $\texttt{so}$, etc.
   %
 \end{itemize}
 
@@ -143,7 +147,81 @@ As an example, move \texttt{B4mi} represents the following ``flat'' coordinates:
   %
 \end{itemize}
 
+\tdplotsetmaincoords{60}{125}
+%
+\tdplotsetrotatedcoords{0}{0}{0} %<- rotate around (z,y,z)
+%
+\begin{figure}[t!]
+  %
+  \centering
+  %
+  \begin{tikzpicture}[scale=2,tdplot_rotated_coords,
+                      cube/.style={very thick,black},
+                      grid/.style={very thin,gray},
+                      axis/.style={black,thick}]
+
+    \draw[axis,tdplot_main_coords]
+      (2,2.1,0) node[anchor=north west] {\texttt{A}}
+      -- (1,2.1,0) node[anchor=north west] {\texttt{B}}
+      -- (0,2.1,0) node[anchor=north west] {\texttt{C}};
+
+    \draw[axis,tdplot_main_coords]
+      (2.1,0,0) node[anchor=north east] {\texttt{1}}
+      -- (2.1,1,0) node[anchor=north east] {\texttt{2}}
+      -- (2.1,2,0) node[anchor=north east] {\texttt{3}};
+
+    \draw[axis,tdplot_main_coords]
+      (2,-0.1,2) node[anchor=east] {\texttt{do}}
+      -- (2,-0.1,1) node[anchor=east] {\texttt{re}}
+      -- (2,-0.1,0) node[anchor=east] {\texttt{mi}};
+
+    %draw the top and bottom of the cube
+    \draw[cube,fill=blue!5] (0,0,0) -- (0,2,0) -- (2,2,0) -- (2,0,0) -- cycle;
+
+    %draw the top and bottom of the cube
+    \draw[cube,fill=red!5] (0,0,0) -- (0,2,0) -- (0,2,2) -- (0,0,2) -- cycle;
+
+    %draw the top and bottom of the cube
+    \draw[cube,fill=green!5] (0,0,0) -- (2,0,0) -- (2,0,2) -- (0,0,2) -- cycle;
+
+    \foreach \x in {0,...,2}
+       \foreach \y in {0,...,2}
+          \foreach \z in {0,...,2}{
+               %#####################################################
+               \ifthenelse{  \lengthtest{\x pt < 2pt}  }
+               {
+                 % True
+                    \draw [black]   (\x,\y,\z) -- (\x+1,\y,\z);
+               }
+               {% False
+               }
+               %#####################################################
+               \ifthenelse{  \lengthtest{\y pt < 2pt}  }
+               {
+                 % True
+                    \draw [black]   (\x,\y,\z) -- (\x,\y+1,\z);
+               }
+               {% False
+               }
+               %#####################################################
+               \ifthenelse{  \lengthtest{\z pt < 2pt}  }
+               {
+                 % True
+                    \draw [black]   (\x,\y,\z) -- (\x,\y,\z+1);
+               }
+               {% False
+               }
+               \shade[axis,ball color=black] (\x,\y,\z) circle (0.05cm);
+    }
+    %
+  \end{tikzpicture}
+  %
+  \caption{A $3\times 3\times 3$ goban and the 3D coordinate system.}\label{fig:goban}
+  %
+\end{figure}
+
 \newgeometry{margin=0cm,includeheadfoot}
+\onecolumn
 
 \begin{center}
 \begin{tikzpicture}
