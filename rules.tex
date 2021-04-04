@@ -61,25 +61,25 @@
   }
 }
 
-\newcommand\upperlabels{A,...,Z}
-\newcommand\lowerlabels{do,re,mi,fa,so,la,si}
+\newcommand\letterlabels{A,...,Z}
 \newcommand\numberlabels{1,...,19}
+\newcommand\musiclabels{do,re,mi,fa,so,la,ti}
 
 \newcommand\upperboard[1]{
   \grid{#1}
   \xlabels{#1}{\numberlabels}
-  \ylabels{#1}{\lowerlabels}
+  \ylabels{#1}{\musiclabels}
 }
 
 \newcommand\numberboard[1]{
   \grid{#1}
-  \xlabels{#1}{\lowerlabels}
-  \ylabels{#1}{\upperlabels}
+  \xlabels{#1}{\musiclabels}
+  \ylabels{#1}{\letterlabels}
 }
 
 \newcommand\lowerboard[1]{
   \grid{#1}
-  \xlabels{#1}{\upperlabels}
+  \xlabels{#1}{\letterlabels}
   \ylabels{#1}{\numberlabels}
 }
 
@@ -106,9 +106,21 @@ $5\times 5$ games.  Each 2D ``slice'' of the 3D goban represents a separate
 corresponds to $3$ moves and $12$ passes in the $5\times 5$ ``slice'' gobans.
 
 Each intersection can be identified by using 3D coordinates which range from
-$\texttt{A1a}$ to $\texttt{E5e}$.  These coordinates can be used to uniquely
-identify both the 2D ``slice'' gobans in which the moves are being played, and
-the coordinates within those ``slice'' gobans.
+$\texttt{A1do}$ to $\texttt{E5so}$, where
+%
+\begin{itemize}
+  %
+  \item the first axis contains coordinates $\texttt{A}$, $\texttt{B}$, $\texttt{C}$, $\texttt{D}$, $\texttt{E}$;
+  %
+  \item the second axis contains coordinates $\texttt{1}$, $\texttt{2}$, $\texttt{3}$, $\texttt{4}$, $\texttt{5}$; and
+  %
+  \item the third axis contains coordinates $\texttt{do}$, $\texttt{re}$, $\texttt{mi}$, $\texttt{fa}$, $\texttt{so}$,
+  %
+\end{itemize}
+
+
+These 3D coordinates uniquely identify both the 2D ``slice'' gobans in which
+the moves are being played, and the coordinates within those ``slice'' gobans.
 %
 Each 2D board has a unique name;  in $5\times 5\times 5$ multiverse go, the
 names are 
@@ -117,17 +129,17 @@ names are
 %
 \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}, \texttt{5},
 %
-\texttt{a}, \texttt{b}, \texttt{c}, \texttt{d}, and \texttt{e}.
+\texttt{do}, \texttt{re}, \texttt{mi}, \texttt{fa}, and \texttt{so}.
 %
-As an example, move \texttt{B4c} represents three moves:
+As an example, move \texttt{B4mi} represents the following ``flat'' coordinates:
 %
 \begin{itemize}
   %
-  \item Move \texttt{4c} on board \texttt{B};
+  \item Move \texttt{4mi} on board \texttt{B};
   %
-  \item Move \texttt{Bc} on board \texttt{4};
+  \item Move \texttt{Bmi} on board \texttt{4}; and
   %
-  \item Move \texttt{B4} on board \texttt{c};
+  \item Move \texttt{B4} on board \texttt{mi}.
   %
 \end{itemize}
 
@@ -139,7 +151,7 @@ As an example, move \texttt{B4c} represents three moves:
   \newcommand\size{5}
   \begin{scope}[scale=1.1]
 
-    \foreach \name [count=\i] in \upperlabels {
+    \foreach \name [count=\i] in \letterlabels {
       \begin{scope}[scale=0.8,yshift=-\i*\size cm]
 
         \begin{scope}[shift={(-1.1,\size - 1)}]
@@ -171,7 +183,7 @@ As an example, move \texttt{B4c} represents three moves:
       \end{scope}
     }
 
-    \foreach \name [count=\i] in \lowerlabels {
+    \foreach \name [count=\i] in \musiclabels {
       \begin{scope}[scale=0.8,yshift=-\i*\size cm,xshift=14cm]
 
         \begin{scope}[shift={(-1.1,\size - 1)}]
@@ -198,7 +210,7 @@ As an example, move \texttt{B4c} represents three moves:
   \newcommand\size{7}
   \begin{scope}[scale=0.66]
 
-    \foreach \name [count=\i] in \upperlabels {
+    \foreach \name [count=\i] in \letterlabels {
       \begin{scope}[scale=0.8,yshift=-\i*\size cm]
 
         \begin{scope}[shift={(-1.5,\size - 1)}]
@@ -230,7 +242,7 @@ As an example, move \texttt{B4c} represents three moves:
       \end{scope}
     }
 
-    \foreach \name [count=\i] in \lowerlabels {
+    \foreach \name [count=\i] in \musiclabels {
       \begin{scope}[scale=0.8,yshift=-\i*\size cm,xshift=20cm]
 
         \begin{scope}[shift={(-1.5,\size - 1)}]
